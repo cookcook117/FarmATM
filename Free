@@ -1,37 +1,30 @@
+-- 📽️ Simple Jumpscare Script (Video + Sound Only)
+
 if getcustomasset == nil or writefile == nil then
-	game:Shutdown()
+    game:Shutdown() -- ป้องกันไม่ให้รันบน Roblox Studio หรือ executor ที่ไม่รองรับ
 end
 
+-- โหลดวิดีโอจาก GitHub แล้วเล่น
+local player = game:GetService("Players").LocalPlayer
 local gui = game:GetService("CoreGui")
 
--- สร้าง GUI หลัก
 local screenGui = Instance.new("ScreenGui")
 screenGui.Name = "JumpscareUI"
 screenGui.Parent = gui
 screenGui.IgnoreGuiInset = true
 screenGui.ResetOnSpawn = false
 
--- โหลดภาพ
-local imagePath = "jumpscareImage.png"
-local imageURL = "https://github.com/cookcook117/dd/blob/main/image3333.png" -- เปลี่ยนลิงก์ภาพที่คุณต้องการ
-writefile(imagePath, game:HttpGet(imageURL))
+local videoFrame = Instance.new("VideoFrame")
+videoFrame.Size = UDim2.new(1, 0, 1, 0)
+videoFrame.Position = UDim2.new(0, 0, 0, 0)
+videoFrame.Looped = true
+videoFrame.Volume = 100
+videoFrame.Parent = screenGui
 
--- สร้าง ImageLabel
-local imageLabel = Instance.new("ImageLabel")
-imageLabel.Size = UDim2.new(1, 0, 1, 0)
-imageLabel.Position = UDim2.new(0, 0, 0, 0)
-imageLabel.Image = getcustomasset(imagePath)
-imageLabel.BackgroundTransparency = 1
-imageLabel.Parent = screenGui
+-- เขียนไฟล์วิดีโอลงเครื่อง (ต้องใช้ executor ที่รองรับ writefile)
+local videoURL = "https://github.com/HappyCow91/RobloxScripts/blob/main/Videos/videoplayback.mp4?raw=true"
+local videoPath = "yes.mp4"
 
--- โหลดเสียง
-local soundPath = "jumpscareSound.mp3"
-local soundURL = "https://your-sound-link.com/sound.mp3" -- เปลี่ยนลิงก์เสียงที่คุณต้องการ
-writefile(soundPath, game:HttpGet(soundURL))
-
-local sound = Instance.new("Sound")
-sound.SoundId = getcustomasset(soundPath)
-sound.Volume = 10
-sound.Looped = false
-sound.Parent = screenGui
-sound:Play()
+writefile(videoPath, game:HttpGet(videoURL))
+videoFrame.Video = getcustomasset(videoPath)
+videoFrame.Playing = true
