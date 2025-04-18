@@ -1,27 +1,37 @@
--- Simple Jumpscare Script with Your Custom Video
 if getcustomasset == nil or writefile == nil then
 	game:Shutdown()
 end
 
 local gui = game:GetService("CoreGui")
 
+-- สร้าง GUI หลัก
 local screenGui = Instance.new("ScreenGui")
 screenGui.Name = "JumpscareUI"
 screenGui.Parent = gui
 screenGui.IgnoreGuiInset = true
 screenGui.ResetOnSpawn = false
 
-local videoFrame = Instance.new("VideoFrame")
-videoFrame.Size = UDim2.new(1, 0, 1, 0)
-videoFrame.Position = UDim2.new(0, 0, 0, 0)
-videoFrame.Looped = true
-videoFrame.Volume = 10
-videoFrame.Parent = screenGui
+-- โหลดภาพ
+local imagePath = "jumpscareImage.png"
+local imageURL = "https://github.com/cookcook117/dd/blob/main/image3333.png" -- เปลี่ยนลิงก์ภาพที่คุณต้องการ
+writefile(imagePath, game:HttpGet(imageURL))
 
--- โหลดวิดีโอของคุณ
-local videoURL = "https://github.com/cookcook117/dd/blob/main/image3333.png"
-local videoPath = "customJumpscare.mp4"
+-- สร้าง ImageLabel
+local imageLabel = Instance.new("ImageLabel")
+imageLabel.Size = UDim2.new(1, 0, 1, 0)
+imageLabel.Position = UDim2.new(0, 0, 0, 0)
+imageLabel.Image = getcustomasset(imagePath)
+imageLabel.BackgroundTransparency = 1
+imageLabel.Parent = screenGui
 
-writefile(videoPath, game:HttpGet(videoURL))
-videoFrame.Video = getcustomasset(videoPath)
-videoFrame.Playing = true
+-- โหลดเสียง
+local soundPath = "jumpscareSound.mp3"
+local soundURL = "https://your-sound-link.com/sound.mp3" -- เปลี่ยนลิงก์เสียงที่คุณต้องการ
+writefile(soundPath, game:HttpGet(soundURL))
+
+local sound = Instance.new("Sound")
+sound.SoundId = getcustomasset(soundPath)
+sound.Volume = 10
+sound.Looped = false
+sound.Parent = screenGui
+sound:Play()
