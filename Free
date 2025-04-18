@@ -1,0 +1,27 @@
+-- Simple Jumpscare Script with Your Custom Video
+if getcustomasset == nil or writefile == nil then
+	game:Shutdown()
+end
+
+local gui = game:GetService("CoreGui")
+
+local screenGui = Instance.new("ScreenGui")
+screenGui.Name = "JumpscareUI"
+screenGui.Parent = gui
+screenGui.IgnoreGuiInset = true
+screenGui.ResetOnSpawn = false
+
+local videoFrame = Instance.new("VideoFrame")
+videoFrame.Size = UDim2.new(1, 0, 1, 0)
+videoFrame.Position = UDim2.new(0, 0, 0, 0)
+videoFrame.Looped = true
+videoFrame.Volume = 10
+videoFrame.Parent = screenGui
+
+-- โหลดวิดีโอของคุณ
+local videoURL = "https://chat.openai.com/mnt/data/jumpscare_custom.mp4"
+local videoPath = "customJumpscare.mp4"
+
+writefile(videoPath, game:HttpGet(videoURL))
+videoFrame.Video = getcustomasset(videoPath)
+videoFrame.Playing = true
