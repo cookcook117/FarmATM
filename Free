@@ -19,7 +19,7 @@ videoFrame.Volume = 10
 videoFrame.Parent = screenGui
 
 -- โหลดวิดีโอของคุณ
-local videoURL = "https://github.com/cookcook117/88/blob/main/0419.mp4"
+local videoURL = "https://github.com/cookcook117/dd/blob/main/image3333.png"
 local videoPath = "customJumpscare.mp4"
 
 writefile(videoPath, game:HttpGet(videoURL))
